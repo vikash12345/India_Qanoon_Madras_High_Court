@@ -34,7 +34,7 @@ require 'scraperwiki/simple_html_dom.php';
 						$correctlink	=	'https://indiankanoon.org'.$monthname;
 						$urlofpage	=	str_replace(" ","%20",$correctlink);
 						$html		=	file_get_html($urlofpage);
-						slee(7);
+						sleep(7);
 		if($html)
 		{
 			//  Page loaded successfully
