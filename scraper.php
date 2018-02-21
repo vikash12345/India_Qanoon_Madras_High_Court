@@ -14,16 +14,17 @@ require 'scraperwiki/simple_html_dom.php';
 	{	
 		sleep(5);
 		
-		$link	=	'https://indiankanoon.org/'.$page;
+		$link		=	'https://indiankanoon.org/'.$page;
 		$pageofyears	=	file_get_html($link);
 		foreach($pageofyears->find("/html/body/div[2]/table/tbody/tr/td/div[@class='browselist']")as $year)
 		{
 			$yearlink	=	$year->find("a",0)->href;
 			$yeartext	=	$year->find("a",0)->plaintext;
+			echo "Scraper Inprogress don't stop -> $yeartext\n";
 			if($yearlink)
 			{
 				$pagelink		=	 'https://indiankanoon.org'.$yearlink;
-				$openyearpage	=	  file_get_html($pagelink);
+				$openyearpage		=	  file_get_html($pagelink);
 				if($openyearpage)
 				{
 					foreach($openyearpage->find("//td/div[@class='browselist']")as $month)
@@ -32,7 +33,8 @@ require 'scraperwiki/simple_html_dom.php';
 						$monthtext	=	$month->find("a",0)->plaintext;
 						$correctlink	=	'https://indiankanoon.org'.$monthname;
 						$urlofpage	=	str_replace(" ","%20",$correctlink);
-						$html		=		file_get_html($urlofpage);
+						$html		=	file_get_html($urlofpage);
+						slee(7);
 		if($html)
 		{
 			//  Page loaded successfully
@@ -43,14 +45,14 @@ require 'scraperwiki/simple_html_dom.php';
 					$RecordLoop+=  1;
 					$paginationlink		=	$urlofpage.'&pagenum='.$RecordLoop;
 					$mainpageofprofiles 		=	file_get_html($paginationlink);
-					sleep(5);
+					sleep(7);
 					$checkerprofile	=	$mainpageofprofiles->find("/html/body/div/div[3]/form/input[3]",0);
 			
 			
 					
 					if (!$checkerprofile) 
 								{
-									echo "Scraper Inprogress don't stop -> $pagetext\n";
+									
 									$RecordFlag =   false;
 									break;
 								}			
